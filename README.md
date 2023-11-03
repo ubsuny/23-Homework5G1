@@ -10,8 +10,8 @@ In particular fullfill three tasks (one for each group member):
 
 **Task 2:**
 Use some combination of waveform modification (which may include padding, windowing, taking the FFT, manipulating the waveforms, inverse FFT, and undoing the window+padding), to do the following:
-- Clean up either high or low frequency noise (depends on your data) in the time domain by zeroing the appropriate waveform coefficients in the frequency domain(7p).
-- Plot both the "raw" and "cleaned" spectra in the time domain(2p).
+- Clean up either high or low frequency noise (depends on your data) in the time domain by zeroing the appropriate waveform coefficients in the frequency domain.
+- Plot both the "raw" and "cleaned" spectra in the time domain.
 
 **Task 3:**
 - Write the documentation
