@@ -1,0 +1,3 @@
+Sand Island, Midway, United States (MID)
+
+https://gml.noaa.gov/aftp/data/trace_gases/co2/flask/surface/txt/co2_mid_surface-flask_1_ccgg_month.txt
