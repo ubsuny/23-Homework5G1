@@ -34,4 +34,3 @@ plt.plot(y[:len(y)], label='Original')  # Plotting only the original length part
 plt.xlabel("Month Index")
 plt.ylabel("CO2 Concentration (ppm)")
 plt.legend()
-
