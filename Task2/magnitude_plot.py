@@ -1,4 +1,5 @@
 import numpy as np
+from inverse_fft import *
 import matplotlib.pyplot as plt
 # Padding
 log2N = np.log2(len(y))
