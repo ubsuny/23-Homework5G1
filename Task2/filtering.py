@@ -4,18 +4,18 @@ import matplotlib.pyplot as plt
 # Padding
 log2N = np.log2(len(y))
 next_pow_of_2 = int(log2N) + 1
-if log2N != int(log2N):
+if log2N != int(log2N): # check if data length is 2^n. If not, pad data
     y_padded = np.pad(y, (0, 2**next_pow_of_2 - len(y)), 'constant', constant_values=(0,))
 else:
     y_padded = y
-x_padded = np.arange(len(y_padded))
+x_padded = np.arange(len(y_padded)) # make new array of x values as long as the new y array
 
 # Windowing
 window = 0.5 - 0.5 * np.cos(2 * np.pi * x_padded / (len(y_padded) - 1))
 y_windowed = y_padded * window
 
 # FFT
-Y = fft(y_windowed)
+Y = fft(y_windowed) # take fourier transform of windowed y array
 
 # Filtering (e.g., remove high frequencies)
 maxfreq = 5
@@ -23,8 +23,8 @@ Y_filtered = Y.copy()
 Y_filtered[maxfreq:len(Y)-maxfreq] = np.zeros(len(Y)-2*maxfreq)
 
 # Inverse FFT
-y_filtered = ifft(Y_filtered)
-y_filtered_abs = np.abs(y_filtered)
+y_filtered = ifft(Y_filtered) # take inverse fourier transform of filtered y array
+y_filtered_abs = np.abs(y_filtered) # take absolute value
 
 plt.figure(figsize=(10, 6))
 plt.plot(y_filtered_abs, label='Filtered Data')  # Plot the filtered data
