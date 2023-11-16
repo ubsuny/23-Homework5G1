@@ -24,3 +24,33 @@ def discrete_transform(data):
             transform[k] += data[j] * exp(1j * angle)
 
     return transform
+
+def fft(x):
+    """
+    Perform the Cooley-Tukey Radix-2 Decimation in Time (DIT) Fast Fourier Transform (FFT).
+
+    Parameters:
+    - x (array-like): Input signal for which the FFT is to be calculated.
+
+    Returns:
+    array: Complex array representing the FFT of the input signal.
+
+    The function uses a recursive approach based on the Cooley-Tukey algorithm
+    to efficiently compute the FFT. If the length of the input signal is odd,
+    it falls back to the discrete_transform function.
+
+    Note: The input signal length should be a power of 2 for optimal efficiency.
+    """
+    N = len(x)
+    
+    if N <= 1:
+        return x
+    elif N % 2 == 1:
+        print('N is ' + str(N) + ', fall back to discrete transform')
+        return discrete_transform(x)
+    
+    even = fft(x[0::2])
+    odd = fft(x[1::2])
+    
+    return np.array([even[k] + exp(-2j * pi * k / N) * odd[k] for k in range(N // 2)] +
+                    [even[k] - exp(-2j * pi * k / N) * odd[k] for k in range(N // 2)])
