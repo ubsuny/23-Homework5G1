@@ -25,6 +25,7 @@ def discrete_transform(data):
 
     return transform
 
+
 def fft(x):
     """
     Perform the Cooley-Tukey Radix-2 Decimation in Time (DIT) Fast Fourier Transform (FFT).
@@ -41,19 +42,71 @@ def fft(x):
 
     Note: The input signal length should be a power of 2 for optimal efficiency.
     """
-    def fft(x):    # use our y value from our plot/data as x here...
     N = len(x)
-    if N <= 1: return x
+    if N <= 1:
+        return x
     even = fft(x[0::2])
-    odd =  fft(x[1::2])
-    return np.array( [even[k] + np.exp(-2j*np.pi*k/N)*odd[k] for k in range(N//2)] + \
-                     [even[k] - np.exp(-2j*np.pi*k/N)*odd[k] for k in range(N//2)] )
+    odd = fft(x[1::2])
+    return np.array([even[k] + np.exp(-2j * np.pi * k / N) * odd[k] for k in range(N // 2)] +
+                    [even[k] - np.exp(-2j * np.pi * k / N) * odd[k] for k in range(N // 2)])
 
-def calculate_frequencies(N, sampling_rate):
-    """Calculate the frequencies corresponding to the FFT."""
-    return np.fft.fftfreq(N, d=1/sampling_rate)
+# def calculate_frequencies(N, sampling_rate):
+#     """Calculate the frequencies corresponding to the FFT."""
+#     return np.fft.fftfreq(N, d=1/sampling_rate)
 
-def find_peak_frequency(frequencies, power_spectrum):
-    """Identify the peak frequency from the power spectrum."""
-    peak_index = np.argmax(power_spectrum)
-    return frequencies[peak_index]
+# def find_peak_frequency(frequencies, power_spectrum):
+#     """Identify the peak frequency from the power spectrum."""
+#     peak_index = np.argmax(power_spectrum)
+#     return frequencies[peak_index]
+
+def fft_power(x):
+    """
+    Compute the power spectrum of the given FFT result.
+
+    Parameters:
+    - x (array-like): Result of the FFT.
+
+    Returns:
+    array: Power spectrum of the input.
+
+    The function calculates the power spectrum by squaring the magnitude
+    of each frequency component in the FFT result and normalizing by the
+    total number of data points.
+
+    Note: The input should be the result of an FFT, and the length of the
+    input should be a power of 2 for optimal efficiency.
+    """
+    N = len(x)
+    if N <= 1:
+        return x
+
+    power = np.zeros(N // 2 + 1)
+    power[0] = abs(x[0]) ** 2
+    power[1 : N // 2] = abs(x[1 : N // 2]) ** 2 + abs(x[N - 1 : N // 2 : -1]) ** 2
+    power[N // 2] = abs(x[N // 2]) ** 2
+    power = power / N
+
+    return power
+
+def ifft(x):
+    from numpy import conj, divide
+
+    # Conjugate the complex numbers
+    x = np.conj(x)
+
+    # Forward FFT
+    X = fft(x)
+
+    # Conjugate the complex numbers again
+    X = np.conj(X)
+
+    # Scale the numbers
+    X = X / len(X)
+
+    # Perform the inverse FFT
+    result = np.fft.ifft(X)
+
+    return result
+
+
+
