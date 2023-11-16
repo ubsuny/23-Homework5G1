@@ -48,3 +48,12 @@ def fft(x):
     odd =  fft(x[1::2])
     return np.array( [even[k] + np.exp(-2j*np.pi*k/N)*odd[k] for k in range(N//2)] + \
                      [even[k] - np.exp(-2j*np.pi*k/N)*odd[k] for k in range(N//2)] )
+
+def calculate_frequencies(N, sampling_rate):
+    """Calculate the frequencies corresponding to the FFT."""
+    return np.fft.fftfreq(N, d=1/sampling_rate)
+
+def find_peak_frequency(frequencies, power_spectrum):
+    """Identify the peak frequency from the power spectrum."""
+    peak_index = np.argmax(power_spectrum)
+    return frequencies[peak_index]
