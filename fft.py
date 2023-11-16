@@ -1,5 +1,6 @@
 from cmath import exp, pi
 from math import sin, cos
+from scipy.signal import find_peaks
 import numpy as np
 
 def discrete_transform(data):
@@ -50,14 +51,54 @@ def fft(x):
     return np.array([even[k] + np.exp(-2j * np.pi * k / N) * odd[k] for k in range(N // 2)] +
                     [even[k] - np.exp(-2j * np.pi * k / N) * odd[k] for k in range(N // 2)])
 
-# def calculate_frequencies(N, sampling_rate):
-#     """Calculate the frequencies corresponding to the FFT."""
-#     return np.fft.fftfreq(N, d=1/sampling_rate)
 
-# def find_peak_frequency(frequencies, power_spectrum):
-#     """Identify the peak frequency from the power spectrum."""
-#     peak_index = np.argmax(power_spectrum)
-#     return frequencies[peak_index]
+
+def plot_power_spectrum_with_peaks(data, frequencies, sampling_rate=1):
+    """
+    Plot the power spectrum of the given data and mark the peaks.
+
+    Parameters:
+    - data (array-like): Time-domain signal for which the FFT is to be calculated.
+    - frequencies (array-like): Frequencies corresponding to the FFT.
+    - sampling_rate (float, optional): Sampling rate of the signal. Default is 1.
+
+    Returns:
+    - peak_frequencies (array): Frequencies of the identified peaks.
+
+    This function calculates the power spectrum using FFT, identifies peaks,
+    and plots the power spectrum with marked peaks.
+
+    Example usage:
+    ```
+    from fft import plot_power_spectrum_with_peaks
+
+    # Assuming you have cut_data and frequencies
+    plot_power_spectrum_with_peaks(cut_data, frequencies)
+    ```
+    """
+    # Perform FFT on the data
+    X = fft(data)
+
+    # Calculate power spectrum
+    power_spectrum = np.abs(data[:len(frequencies)//2])**2 / len(data)
+
+    # Find peaks in the power spectrum
+    peak_indices, _ = find_peaks(power_spectrum)
+
+    # Get corresponding frequencies of the peaks
+    peak_frequencies = frequencies[peak_indices]
+
+    # Plot the power spectrum with identified peaks
+    plt.plot(frequencies[:len(frequencies)//2], power_spectrum, label='Power Spectrum')
+    plt.plot(peak_frequencies, power_spectrum[peak_indices], 'rx', label='Peaks')
+    plt.xlabel('Frequency')
+    plt.ylabel('Power')
+    plt.legend()
+    plt.show()
+
+    # Return the identified peak frequencies
+    return peak_frequencies
+
 
 def fft_power(x):
     """
