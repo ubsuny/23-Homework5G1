@@ -41,16 +41,10 @@ def fft(x):
 
     Note: The input signal length should be a power of 2 for optimal efficiency.
     """
+    def fft(x):    # use our y value from our plot/data as x here...
     N = len(x)
-    
-    if N <= 1:
-        return x
-    elif N % 2 == 1:
-        print('N is ' + str(N) + ', fall back to discrete transform')
-        return discrete_transform(x)
-    
+    if N <= 1: return x
     even = fft(x[0::2])
-    odd = fft(x[1::2])
-    
-    return np.array([even[k] + exp(-2j * pi * k / N) * odd[k] for k in range(N // 2)] +
-                    [even[k] - exp(-2j * pi * k / N) * odd[k] for k in range(N // 2)])
+    odd =  fft(x[1::2])
+    return np.array( [even[k] + np.exp(-2j*np.pi*k/N)*odd[k] for k in range(N//2)] + \
+                     [even[k] - np.exp(-2j*np.pi*k/N)*odd[k] for k in range(N//2)] )
