@@ -17,7 +17,16 @@ X(t) = ∫<sub>-∞</sub><sup>∞</sup> x(f) ⋅ e<sup>-j2πft</sup> df
 ## Data Selection
 [Data Station](https://gml.noaa.gov/dv/data/index.php?category=Greenhouse%2BGases&parameter_name=Carbon%2BDioxide&frequency=Monthly%2BAverages&search=sand+island): We have chosen the data of Sand Island, Midway, United States (MID) where air samples are collected in glass flasks.
 ## Project Objective:
-The main objective of our project
+The project is divided into three tasks.
+
+#### Task 1: Calculate Actual Frequency
+We have to implement a Python function for actual frequency in useful units based on the Fourier transform of a signal. The function should take frequencies and the Fourier transform of a signal, along with the sampling rate, and provide the actual frequency in a more interpretable form.
+
+#### Task 2: Clean Up Noise in Time Domain
+We have to develop a Python function that utilizes a combination of waveform modification techniques, including padding, windowing, FFT, inverse FFT, and undoing window+padding. This function should clean up either high or low-frequency noise in the time domain by zeroing the appropriate waveform coefficients in the frequency domain. Additionally, you need to plot both the "raw" and "cleaned" spectra in the time domain for visual comparison.
+
+#### Task 3: Documentation, GitHub Actions, and Unit Tests
+For this task, we have to complete the documentation for the implemented functions, reuse GitHub Actions for linting and unit tests, and write unit tests for Task 1 and Task 2.
 
 ## Algorithm with Docstrings.
 ```python
