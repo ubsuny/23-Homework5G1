@@ -1,7 +1,7 @@
 # Documentation
 ## Introduction:
-The FFT essentially converts a signal from its time-based representation to its frequency-based representation, allowing us to dissect the signal into its fundamental frequencies. This process has broad applications across multiple fields, such as signal processing, engineering, and physics. In the case of CO2 or methane data, applying FFT enables the understanding of recurring patterns or prominent frequencies in the dataset. It helps in uncovering cyclic behaviors or notable shifts in gas concentrations over time. By breaking down the data into its frequency components, the FFT reveals the waves needed to reconstruct the original signal. This is particularly valuable for recognizing cyclic trends, identifying significant frequencies, and eliminating unwanted noise from the dataset.
-The Fourier Transform of a continuous-time signal \( x(t) \) is given by:
+The FFT essentially converts a signal from its time-based representation to its frequency-based representation, allowing us to dissect the signal into its fundamental frequencies. This process has broad applications across multiple fields, such as signal processing, engineering, and physics [[1]](https://www.nti-audio.com/en/support/know-how/fast-fourier-transform-fft). In the case of CO2 or methane data, applying FFT enables the understanding of recurring patterns or prominent frequencies in the dataset. It helps in uncovering cyclic behaviors or notable shifts in gas concentrations over time. By breaking down the data into its frequency components, the FFT reveals the waves needed to reconstruct the original signal. This is particularly valuable for recognizing cyclic trends, identifying significant frequencies, and eliminating unwanted noise from the dataset.
+The Fourier Transform of a continuous-time signal \( x(t) \) is given by:[[2]](https://en.wikipedia.org/wiki/Fourier_transform)
 
 X(f) = ∫<sub>-∞</sub><sup>∞</sup> x(t) ⋅ e<sup>-j2πft</sup> dt
 
@@ -15,7 +15,7 @@ The Inverse Fourier Transform is used to recover the original time-domain signal
 X(t) = ∫<sub>-∞</sub><sup>∞</sup> x(f) ⋅ e<sup>-j2πft</sup> df
 
 ## Data Selection
-[Data Station](https://gml.noaa.gov/dv/data/index.php?category=Greenhouse%2BGases&parameter_name=Carbon%2BDioxide&frequency=Monthly%2BAverages&search=sand+island): We have chosen the data of Sand Island, Midway, United States (MID) where air samples are collected in glass flasks.
+[[3] Data Station](https://gml.noaa.gov/dv/data/index.php?category=Greenhouse%2BGases&parameter_name=Carbon%2BDioxide&frequency=Monthly%2BAverages&search=sand+island): We have chosen the data of Sand Island, Midway, United States (MID) where air samples are collected in glass flasks.
 ## Project Objective:
 The project is divided into three tasks.
 
@@ -28,7 +28,7 @@ We have to develop a Python function that utilizes a combination of waveform mod
 #### Task 3: Documentation, GitHub Actions, and Unit Tests
 For this task, we have to complete the documentation for the implemented functions, reuse GitHub Actions for linting and unit tests, and write unit tests for Task 1 and Task 2.
 
-## Algorithm with Docstrings.
+## Algorithm with Docstrings.[[4]] (https://github.com/ubsuny/CompPhys)
 ```python
 from cmath import exp, pi
 from math import sin, cos
@@ -203,7 +203,7 @@ Peak Frequencies: [0.31858407 0.63716814 0.95575221 1.24778761 1.56637168 1.9115
 ```
 ## Filtering
 
-Filtering refers to the process of selectively modifying or extracting certain components from a signal while attenuating or eliminating others. It is a fundamental concept in signal processing and is used in various fields such as audio processing, image processing, communication systems, and data analysis. The goal of filtering is often to enhance specific features of interest or to remove unwanted noise or interference.
+Filtering refers to the process of selectively modifying or extracting certain components from a signal while attenuating or eliminating others. It is a fundamental concept in signal processing and is used in various fields such as audio processing, image processing, communication systems, and data analysis. The goal of filtering is often to enhance specific features of interest or to remove unwanted noise or interference [[5]](https://en.wikipedia.org/wiki/Filter_(signal_processing)).
 
 #### Types of Filters
 
@@ -227,7 +227,7 @@ We have used high pass filter in our case to get the desired data. The graph is 
 ![Plot after filtration](https://github.com/ubsuny/23-Homework5G1/blob/main/Task2/Plots/filtering.png)
 
 ## Windowing
-Windowing is a technique used in signal processing to minimize the impact of discontinuities and artifacts that can occur when analyzing a finite segment (window) of a signal. It involves multiplying a signal by a window function, which is a mathematical function that is non-zero for only a finite interval.
+Windowing is a technique used in signal processing to minimize the impact of discontinuities and artifacts that can occur when analyzing a finite segment (window) of a signal. It involves multiplying a signal by a window function, which is a mathematical function that is non-zero for only a finite interval[[6]](https://en.wikipedia.org/wiki/Window_function)
 #### Main Goals of Windowing
 
 The application of windowing in signal processing serves several important goals:
@@ -250,6 +250,16 @@ The obtained nature of graph after windowing is given below:
 ![Plot after filtration](https://github.com/ubsuny/23-Homework5G1/blob/main/Task2/Plots/raw_and_cleaned.png)
 
 In this way we have cleaned the raw data and obtained the graph.
+
+## Bibliography
+1. https://www.nti-audio.com/en/support/know-how/fast-fourier-transform-fft
+2. https://en.wikipedia.org/wiki/Fourier_transform
+3. https://gml.noaa.gov/dv/data/index.php?category=Greenhouse%2BGases&parameter_name=Carbon%2BDioxide&frequency=Monthly%2BAverages&search=sand+island
+4. https://github.com/ubsuny/CompPhys
+5. https://en.wikipedia.org/wiki/Filter_(signal_processing)
+6. https://en.wikipedia.org/wiki/Window_function
+
+
 
 
 
