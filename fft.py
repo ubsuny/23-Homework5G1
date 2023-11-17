@@ -77,7 +77,7 @@ def plot_power_spectrum_with_peaks(data, frequencies, sampling_rate=1):
     ```
     """
     # Perform FFT on the data
-    X = fft(data)
+    X = fft(cut_data)
 
     # Calculate power spectrum
     power_spectrum = np.abs(data[:len(frequencies)//2])**2 / len(data)
