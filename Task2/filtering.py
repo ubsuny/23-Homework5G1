@@ -1,36 +1,57 @@
+from fft import *
+import math
 import numpy as np
-from inverse_fft import *
+import pandas as pd
 import matplotlib.pyplot as plt
-# Padding
-log2N = np.log2(len(y))
-next_pow_of_2 = int(log2N) + 1
-if log2N != int(log2N):
-    y_padded = np.pad(y, (0, 2**next_pow_of_2 - len(y)), 'constant', constant_values=(0,))
-else:
-    y_padded = y
-x_padded = np.arange(len(y_padded))
 
-# Windowing
-window = 0.5 - 0.5 * np.cos(2 * np.pi * x_padded / (len(y_padded) - 1))
-y_windowed = y_padded * window
 
-# FFT
-Y = fft(y_windowed)
+df = pd.read_csv(
+    'https://gml.noaa.gov/aftp/data/trace_gases/co2/flask/surface/txt/co2_mid_surface-flask_1_ccgg_month.txt',
+    delimiter="\s+",skiprows=54, names=['site',	'year',	'month',	'value'])
 
-# Filtering (e.g., remove high frequencies)
-maxfreq = 5
-Y_filtered = Y.copy()
-Y_filtered[maxfreq:len(Y)-maxfreq] = np.zeros(len(Y)-2*maxfreq)
+# Read like previous example with CO2 data
+y = df['value'].values
+y_valid = y >= 0.
+y = y[y_valid]
 
-# Inverse FFT
-y_filtered = ifft(Y_filtered)
-y_filtered_abs = np.abs(y_filtered)
+# instead of truncating, pad with values
 
-plt.figure(figsize=(10, 6))
-plt.plot(y_filtered_abs, label='Filtered Data')  # Plot the filtered data
-plt.plot(y_windowed, label='windowed data')
-plt.xlabel("Index")  # X-axis label
-plt.ylabel("Amplitude")  # Y-axis label
-plt.title("Filtered Data Plot")  # Title of the plot
-plt.legend()  # Show legend
-plt.show()  # Display the plot
+M = len(y)
+log2M = math.log(M, 2)
+next_pow_of_2 = int(log2M) + 1
+if log2M - int(log2M) > 0.0 :    
+    ypads = np.full( 2**( next_pow_of_2) - M, 0, dtype=np.double)
+    y = np.concatenate( (y, ypads) )
+    # CAREFUL: When you pad, the x axis becomes somewhat "meaningless" for the padded values, 
+    # so typically it is best to just consider it an index
+    x = np.arange(len(y))
+    M = len(y)
+                
+# Get the FFT
+Y = fft(y)
+# Smooth the data in the Fourier domain.
+# Adjust this to change the frequencies to delete (frequencies are removed from maxfreq to N/2
+# and accounts for the Nyquist frequency). 
+maxfreq = 50
+Y[maxfreq:len(Y)-maxfreq] = 0.0
+# Get the absolute value and power for plotting
+Y_abs = abs(Y)
+powery = fft_power(Y)
+powerx = np.arange(powery.size)
+
+# Now go back to the frequency domain. 
+# Compare the data before and after filtering. 
+yfiltered = ifft(Y)
+yfiltered_abs= abs(yfiltered)
+
+
+f2 = plt.figure(2)
+plt.plot( powerx, powery, label="Power" )
+plt.plot( x, Y_abs, label="Magnitude" )
+plt.legend()
+plt.xlim([0,maxfreq*2])
+plt.yscale('log')
+plt.xlabel("Spectral Index")
+plt.ylabel("Fourier Component")
+
+plt.show()
