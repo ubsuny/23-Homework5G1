@@ -1,5 +1,5 @@
 pytest
 numpy
 pandas
-matplot lib
+matplotlib
 scipy
