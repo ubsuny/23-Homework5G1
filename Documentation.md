@@ -16,6 +16,9 @@ X(t) = ∫<sub>-∞</sub><sup>∞</sup> x(f) ⋅ e<sup>-j2πft</sup> df
 
 ## Data Selection
 [Data Station](https://gml.noaa.gov/dv/data/index.php?category=Greenhouse%2BGases&parameter_name=Carbon%2BDioxide&frequency=Monthly%2BAverages&search=sand+island): We have chosen the data of Sand Island, Midway, United States (MID) where air samples are collected in glass flasks.
+## Project Objective:
+The main objective of our project
+
 ## Algorithm with Docstrings.
 ```python
 from cmath import exp, pi
