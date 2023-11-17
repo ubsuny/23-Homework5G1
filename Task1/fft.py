@@ -5,7 +5,7 @@ import numpy as np
 
 def discrete_transform(data):
     """
-    Return the Discrete Fourier Transform (DFT) of a complex data vector.
+    Return the Discrete Fourier Transform (DFT) of a complex data vector to readable.
 
     This function calculates the DFT of a given complex data vector using the formula:
     F(k) = Σ [data(j) * exp(-2πi * k * j / N)] for j in range(N)
