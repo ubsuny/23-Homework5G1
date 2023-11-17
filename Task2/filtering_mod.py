@@ -1,50 +1,46 @@
-from fft import *
-import math
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
+# Importing necessary libraries
+from fft import *  
+import math      
+import numpy as np 
+import pandas as pd 
+import matplotlib.pyplot as plt 
 
-
+# Reading CO2 data from the NOAA website
 df = pd.read_csv(
     'https://gml.noaa.gov/aftp/data/trace_gases/co2/flask/surface/txt/co2_mid_surface-flask_1_ccgg_month.txt',
     delimiter="\s+",skiprows=54, names=['site',	'year',	'month',	'value'])
-
-# Read like previous example with CO2 data
+# Extracts CO2 values, filters invalid ones, and stores them in 'y'
 y = df['value'].values
 y_valid = y >= 0.
 y = y[y_valid]
 
-# instead of truncating, pad with values
-
+# Padding the data for FFT
 M = len(y)
 log2M = math.log(M, 2)
 next_pow_of_2 = int(log2M) + 1
 if log2M - int(log2M) > 0.0 :    
     ypads = np.full( 2**( next_pow_of_2) - M, 0, dtype=np.double)
     y = np.concatenate( (y, ypads) )
-    # CAREFUL: When you pad, the x axis becomes somewhat "meaningless" for the padded values, 
-    # so typically it is best to just consider it an index
     x = np.arange(len(y))
     M = len(y)
                 
-# Get the FFT
+# Performing FFT on the data
 Y = fft(y)
-# Smooth the data in the Fourier domain.
-# Adjust this to change the frequencies to delete (frequencies are removed from maxfreq to N/2
-# and accounts for the Nyquist frequency). 
+
+# Smoothing the data by manipulating frequencies in the Fourier domain
 maxfreq = 50
 Y[maxfreq:len(Y)-maxfreq] = 0.0
-# Get the absolute value and power for plotting
+
+# Computing absolute values and power of the Fourier transform for plotting
 Y_abs = abs(Y)
 powery = fft_power(Y)
 powerx = np.arange(powery.size)
 
-# Now go back to the frequency domain. 
-# Compare the data before and after filtering. 
+# Inverse FFT to get filtered time-domain signal
 yfiltered = ifft(Y)
 yfiltered_abs= abs(yfiltered)
 
-
+# Plotting the results
 f2 = plt.figure(2)
 plt.plot( powerx, powery, label="Power" )
 plt.plot( x, Y_abs, label="Magnitude" )
