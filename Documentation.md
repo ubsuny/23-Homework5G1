@@ -201,5 +201,51 @@ Peak Frequencies: [0.31858407 0.63716814 0.95575221 1.24778761 1.56637168 1.9115
  4.14159292 4.3539823  4.46017699 4.67256637 4.77876106 5.09734513
  5.4159292  5.73451327]
 ```
+## Filtering
+
+Filtering refers to the process of selectively modifying or extracting certain components from a signal while attenuating or eliminating others. It is a fundamental concept in signal processing and is used in various fields such as audio processing, image processing, communication systems, and data analysis. The goal of filtering is often to enhance specific features of interest or to remove unwanted noise or interference.
+
+#### Types of Filters
+
+1. **Low-pass Filter:**
+   - Allows low-frequency components to pass through while attenuating high-frequency components.
+   - Commonly used to smooth or remove high-frequency noise from a signal.
+
+2. **High-pass Filter:**
+   - Allows high-frequency components to pass through while attenuating low-frequency components.
+   - Useful for extracting or enhancing high-frequency features in a signal.
+
+#### Applications of Filtering
+
+1. **Audio Processing:** Filtering is used in equalization to adjust the balance of different frequency components in audio signals.
+2. **Image Processing:** Filtering is applied to enhance or suppress certain features in images.
+3. **Communication Systems:** Filters are used to extract or eliminate specific frequency bands in signals for modulation, demodulation, and noise reduction.
+4. **Biomedical Signal Processing:** Filtering is employed to remove noise and isolate specific physiological components from biomedical signals.
+
+We have used high pass filter in our case to get the desired data. The graph is shown below:
+
+![Plot after filtration](https://github.com/poojashresthacode/23-Homework5G1/blob/main/Screenshot%20(14).png)
+
+## Windowing
+Windowing is a technique used in signal processing to minimize the impact of discontinuities and artifacts that can occur when analyzing a finite segment (window) of a signal. It involves multiplying a signal by a window function, which is a mathematical function that is non-zero for only a finite interval.
+#### Main Goals of Windowing
+
+The application of windowing in signal processing serves several important goals:
+
+1. **Minimize Spectral Leakage:**
+   - Windowing helps mitigate the impact of spectral leakage, which occurs when the frequency content of a signal extends beyond the boundaries of the analysis window. By tapering the signal at the edges, windowing reduces the leakage of energy into neighboring frequency bins.
+
+2. **Reduce Side Lobe Amplitude:**
+   - Another crucial goal of windowing is to reduce the amplitude of side lobes. Side lobes are undesired peaks in the frequency domain that can occur when analyzing a finite segment of a signal. Window functions, such as Hamming, Hanning, or Blackman, are designed to suppress side lobes, improving the accuracy of spectral analysis.
+
+3. **Improve Frequency and Amplitude Estimation Accuracy:**
+   - Windowing contributes to the accuracy of frequency and amplitude estimation. By minimizing spectral leakage and suppressing side lobes, windowing enhances the precision with which frequency and amplitude information can be extracted from the signal. This is particularly important in applications where accurate signal characterization is critical.
+
+In summary, windowing is a fundamental technique aimed at refining the analysis of signals, ensuring more accurate and reliable results in various signal processing applications.
+
+The obtained nature of graph after windowing is given below:
+
+
+
 
 
