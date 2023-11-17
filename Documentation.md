@@ -193,4 +193,7 @@ def ifft(x):
     result = np.fft.ifft(X)
 
     return result
+```
+We got the values of frequencies as mentioned below:
+
 
