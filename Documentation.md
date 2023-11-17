@@ -224,7 +224,7 @@ Filtering refers to the process of selectively modifying or extracting certain c
 
 We have used high pass filter in our case to get the desired data. The graph is shown below:
 
-![Plot after filtration](https://github.com/poojashresthacode/23-Homework5G1/blob/main/Screenshot%20(14).png)
+![Plot after filtration](https://github.com/ubsuny/23-Homework5G1/blob/main/Task2/Plots/filtering.png)
 
 ## Windowing
 Windowing is a technique used in signal processing to minimize the impact of discontinuities and artifacts that can occur when analyzing a finite segment (window) of a signal. It involves multiplying a signal by a window function, which is a mathematical function that is non-zero for only a finite interval.
@@ -244,7 +244,12 @@ The application of windowing in signal processing serves several important goals
 In summary, windowing is a fundamental technique aimed at refining the analysis of signals, ensuring more accurate and reliable results in various signal processing applications.
 
 The obtained nature of graph after windowing is given below:
+![Plot after filtration](https://github.com/ubsuny/23-Homework5G1/blob/main/Task2/Plots/windowing1.png)
 
+## Raw and cleaned Graph:
+![Plot after filtration](https://github.com/ubsuny/23-Homework5G1/blob/main/Task2/Plots/raw_and_cleaned.png)
+
+In this way we have cleaned the raw data and obtained the graph.
 
 
 
